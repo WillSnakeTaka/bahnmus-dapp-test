@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BahnMus Test dApp</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+</head>
+<body style="font-family: Arial; text-align:center; padding:40px;">
+
+<h1>BahnMus Test dApp</h1>
+
+<button onclick="connectWallet()">Connect Wallet</button>
+<p id="walletAddress"></p>
+
+<hr>
+
+<button onclick="embedContent()">Load Embedded Content</button>
+<div id="embedArea"></div>
+
+<script>
+
+async function connectWallet() {
+  if (window.ethereum) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    document.getElementById("walletAddress").innerText = "Connected: " + address;
+  } else {
+    alert("Install MetaMask");
+  }
+}
+
+function embedContent() {
+  document.getElementById("embedArea").innerHTML = `
+    <iframe width="560" height="315"
+      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+      frameborder="0" allowfullscreen>
+    </iframe>
+  `;
+}
+
+</script>
+
+</body>
+</html>
